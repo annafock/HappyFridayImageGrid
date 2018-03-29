@@ -1,15 +1,20 @@
 package com.example.happyfridayimagegrid;
 
+
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ImageRecyclerViewAdapter.OnItemClickListener,
-                                                               LoadImagesCallback{
+        LoadImagesCallback{
     private RecyclerView mRecyclerView;
+    private ProgressBar progressBar;
     private ImageRecyclerViewAdapter adapter;
 
     @Override
@@ -17,9 +22,14 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_image);
+        mRecyclerView = findViewById(R.id.recycler_view_image);
         int numberOfColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+        progressBar.setVisibility(View.VISIBLE);
 
         LoadImages task = new LoadImages(this);
         task.execute();
@@ -28,15 +38,31 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
 
     @Override
     public void onItemClicked(int position) {
-
+        //Is set in the adapter
     }
 
+    //Called from onPostExecute and runs from UI thread
     @Override
     public void onImagesLoaded(ArrayList<Image> imagesArray) {
-        adapter = new ImageRecyclerViewAdapter(this, imagesArray);
 
-        mRecyclerView.setAdapter(adapter);
+        if (0 != imagesArray.size()){
+            progressBar.setVisibility(View.GONE);
 
-        adapter.setOnItemClickListener(this);
+            adapter = new ImageRecyclerViewAdapter(this, imagesArray);
+
+            mRecyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(this);
+        }
+    }
+
+    //Called from onProgressUpdate on background Thread
+    @Override
+    public void sendUpdate(int imageCount) {
+        if (imageCount > 0){
+            progressBar.setProgress(imageCount);
+            android.os.SystemClock.sleep(10);
+
+        }
     }
 }

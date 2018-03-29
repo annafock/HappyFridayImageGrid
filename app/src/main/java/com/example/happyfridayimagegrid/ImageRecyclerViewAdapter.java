@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,11 +19,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<Image> mImages;
     private OnItemClickListener mListener;
+    public static final String EXTRA_IMAGE = "image";
 
 
     public interface OnItemClickListener {
@@ -52,7 +56,8 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
         Glide.with(mContext)
                 .load(imagePath)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.mipmap.ic_launcher_round)
                 .thumbnail(0.5f)
                 .into(holder.myImageView);
     }
@@ -68,15 +73,22 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
+
+
                 @Override
                 public void onClick(View view) {
                     if(mListener!=null){
                         int position = getAdapterPosition();
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
+
                             Image clickedItem = mImages.get(position);
 
                             Toast.makeText(mContext, "Image clicked", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(mContext, ShowImageActivity.class);
+                            intent.putExtra(EXTRA_IMAGE, clickedItem.filePath);
+                            mContext.startActivity(intent);
 
                         }
 

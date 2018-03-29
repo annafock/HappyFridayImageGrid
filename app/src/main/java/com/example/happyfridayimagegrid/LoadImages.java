@@ -12,7 +12,7 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
 
     @Override
     protected void onPreExecute() {
-        images = new ArrayList<Image>();
+        images = new ArrayList<>();
 
     }
 
@@ -42,7 +42,7 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
 
     @Override
     protected void onPostExecute(ArrayList<Image> i) {
-        
+
     }
 
 }

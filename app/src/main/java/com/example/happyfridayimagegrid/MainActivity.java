@@ -1,12 +1,14 @@
 package com.example.happyfridayimagegrid;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements ImageRecyclerViewAdapter.OnItemClickListener{
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements ImageRecyclerViewAdapter.OnItemClickListener,
+                                                               LoadImagesCallback{
     private RecyclerView mRecyclerView;
     private ImageRecyclerViewAdapter adapter;
 
@@ -19,19 +21,22 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         int numberOfColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
-        LoadImages task = new LoadImages();
+        LoadImages task = new LoadImages(this);
         task.execute();
-
-        adapter = new ImageRecyclerViewAdapter(this, task.images);
-
-        mRecyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(this);
 
     }
 
     @Override
     public void onItemClicked(int position) {
 
+    }
+
+    @Override
+    public void onImagesLoaded(ArrayList<Image> imagesArray) {
+        adapter = new ImageRecyclerViewAdapter(this, imagesArray);
+
+        mRecyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(this);
     }
 }

@@ -10,13 +10,19 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
 
     ArrayList<Image> images;
 
-    @Override
-    protected void onPreExecute() {
-        images = new ArrayList<>();
+    LoadImagesCallback loadImagesCallback;
 
+    public LoadImages(LoadImagesCallback aLoadImagesCallback){
+        this.loadImagesCallback = aLoadImagesCallback;
     }
 
     @Override
+    protected void onPreExecute() {
+        images = new ArrayList<>();
+    }
+
+    @Override
+    //runs on background thread
     protected ArrayList<Image> doInBackground(Void ... voids) {
 
         String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/";
@@ -41,8 +47,9 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
     }
 
     @Override
+    //runs on UI thread
     protected void onPostExecute(ArrayList<Image> i) {
-
+        loadImagesCallback.onImagesLoaded(images);
     }
 
 }

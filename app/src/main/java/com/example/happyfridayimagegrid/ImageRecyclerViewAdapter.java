@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mImages;
+    private ArrayList<Image> mImages;
 
-    public ImageRecyclerViewAdapter(Context mContext, ArrayList<String> mImages) {
+    public ImageRecyclerViewAdapter(Context mContext, ArrayList<Image> mImages) {
         this.mContext = mContext;
         this.mImages = mImages;
     }
@@ -39,21 +39,24 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        String image = mImages.get(position);
-//        Bitmap bitmap = BitmapFactory.decodeFile(image);
+        holder.myImageView.setImageDrawable(null);
 
-//        File parentFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        String imagePath = mImages.get(position).getFilePath();
 
-//        File file = new File(parentFile,"/141-flickrfriday-racing_21798209469_o.png");
-//        Uri imageUri = Uri.fromFile(file);
+        Glide.with(mContext)
+                .load(imagePath)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.myImageView);
 
-//        Glide.with(mContext).asBitmap()
-//                .load(mImages.get(position).getName())
-//                .thumbnail(0.5f)
+        //This one works to load mipmap
+        //holder.myImageView.setImageResource(R.mipmap.ic_launcher);
+
+        //Glide.with(mContext).load(imagePath).into(holder.myImageView);
+
+//        Glide.with(mContext)
+//                .load("https://www.flickr.com/photos/flickr/34816797320/in/album-72157639858715274/")
 //                .into(holder.myImageView);
 
-
-          holder.myImageView.setImageResource(R.mipmap.ic_launcher);
     }
 
 
@@ -70,13 +73,13 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return mImages.get(id);
+        return mImages.get(id).getImageName();
     }
 
 
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mImages.size();
     }
 }

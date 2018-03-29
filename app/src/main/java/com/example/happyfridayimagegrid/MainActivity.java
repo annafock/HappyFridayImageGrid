@@ -1,5 +1,7 @@
 package com.example.happyfridayimagegrid;
 
+
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_image);
+        mRecyclerView = findViewById(R.id.recycler_view_image);
         int numberOfColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         task.execute();
 
     }
+
 
     @Override
     public void onItemClicked(int position) {

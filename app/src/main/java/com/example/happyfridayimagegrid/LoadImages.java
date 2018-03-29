@@ -33,8 +33,15 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
             for(File f : files){ // loop and print all file
                 String fileName = f.getName(); // this is file name
                 images.add(new Image(fileName, directory + fileName));
+
+                //Send progress callback loadingImageLoadingImage.sendUpdate()
+                //Have an integer for every file
+
+
             }
         }
+
+
         return images;
     }
 

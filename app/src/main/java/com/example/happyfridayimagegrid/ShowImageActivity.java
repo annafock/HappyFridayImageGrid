@@ -18,10 +18,10 @@ public class ShowImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
 
-        //Recieves image object from the gallery
+        //Receives image object from the gallery
         imageFilePath = getIntent().getStringExtra(EXTRA_IMAGE);
 
-        mImageView = (ImageView) findViewById(R.id.image_view_full);
+        mImageView = findViewById(R.id.image_view_full);
 
         Glide.with(this)
                 .load(imageFilePath)

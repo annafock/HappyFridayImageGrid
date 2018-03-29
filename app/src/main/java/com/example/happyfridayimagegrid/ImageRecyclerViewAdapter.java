@@ -13,10 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ViewHolder> {
@@ -46,17 +43,8 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
         Glide.with(mContext)
                 .load(imagePath)
                 .placeholder(R.mipmap.ic_launcher)
+                .thumbnail(0.5f)
                 .into(holder.myImageView);
-
-        //This one works to load mipmap
-        //holder.myImageView.setImageResource(R.mipmap.ic_launcher);
-
-        //Glide.with(mContext).load(imagePath).into(holder.myImageView);
-
-//        Glide.with(mContext)
-//                .load("https://www.flickr.com/photos/flickr/34816797320/in/album-72157639858715274/")
-//                .into(holder.myImageView);
-
     }
 
 
@@ -68,15 +56,12 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
             super(itemView);
             myImageView = (ImageView) itemView.findViewById(R.id.image_view);
         }
-
     }
 
     // convenience method for getting data at click position
     String getItem(int id) {
         return mImages.get(id).getImageName();
     }
-
-
 
     @Override
     public int getItemCount() {

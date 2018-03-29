@@ -19,7 +19,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     private final Context mContext;
     private final ArrayList<Image> mImages;
     private OnItemClickListener mListener;
-    public static final String EXTRA_IMAGE = "image";
+    public static final String EXTRA_IMAGE = "com.example.happyfridayimagegrid.MESSAGE";
 
 
     public interface OnItemClickListener {
@@ -45,14 +45,20 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.myImageView.setImageDrawable(null);
 
+        if(0 != mImages.size()){
         String imagePath = mImages.get(position).getFilePath();
 
-        Glide.with(mContext)
-                .load(imagePath)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.mipmap.ic_launcher_round)
-                .thumbnail(0.5f)
-                .into(holder.myImageView);
+            Glide.with(mContext)
+                    .load(imagePath)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.mipmap.ic_launcher_round)
+                    .thumbnail(0.5f)
+                    .centerCrop()
+                    .into(holder.myImageView);
+
+            //Set content description for each image
+            holder.myImageView.setContentDescription(mImages.get(position).getImageName());
+        }
     }
 
 
@@ -76,8 +82,6 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
                             mListener.onItemClicked(position);
 
                             Image clickedItem = mImages.get(position);
-
-                            Toast.makeText(mContext, "Image clicked", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(mContext, ShowImageActivity.class);
                             intent.putExtra(EXTRA_IMAGE, clickedItem.getFilePath());

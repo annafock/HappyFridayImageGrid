@@ -18,15 +18,18 @@ public class ShowImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
 
+        mImageView = findViewById(R.id.image_view_full);
+
         //Receives image object from the gallery
         imageFilePath = getIntent().getStringExtra(EXTRA_IMAGE);
 
-        mImageView = findViewById(R.id.image_view_full);
+        if(null != imageFilePath){
 
-        Glide.with(this)
-                .load(imageFilePath)
-                .error(R.mipmap.ic_launcher_round)
-                .into(mImageView);
+            Glide.with(this)
+                    .load(imageFilePath)
+                    .error(R.mipmap.ic_launcher_round)
+                    .into(mImageView);
+        }
 
     }
 

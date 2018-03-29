@@ -9,5 +9,6 @@ import java.util.ArrayList;
 public interface LoadImagesCallback {
 
     public void onImagesLoaded(ArrayList<Image> imagesArray);
+    public void sendUpdate(int imageCount);
 
 }

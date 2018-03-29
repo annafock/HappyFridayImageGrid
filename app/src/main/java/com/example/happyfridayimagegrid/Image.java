@@ -3,7 +3,6 @@ package com.example.happyfridayimagegrid;
 public class Image {
     private final String imageName;
     private final String filePath;
-    private String altText;
 
     public Image(String imageName, String filePath) {
         this.imageName = imageName;
@@ -18,11 +17,5 @@ public class Image {
         return filePath;
     }
 
-    public String getAltText() {
-        return altText;
-    }
 
-    public void setAltText(String altText) {
-        this.altText = altText;
-    }
 }

@@ -1,19 +1,12 @@
 package com.example.happyfridayimagegrid;
 
-import android.os.Environment;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageRecyclerViewAdapter.OnItemClickListener{
     private RecyclerView mRecyclerView;
     private ImageRecyclerViewAdapter adapter;
 
@@ -26,28 +19,19 @@ public class MainActivity extends AppCompatActivity {
         int numberOfColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
-        ArrayList<Image> files = listAllFiles();
+        LoadImages task = new LoadImages();
+        task.execute();
 
-        adapter = new ImageRecyclerViewAdapter(this, files);
+        adapter = new ImageRecyclerViewAdapter(this, task.images);
 
         mRecyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(this);
+
     }
 
-    private ArrayList<Image> listAllFiles(){
-        ArrayList<Image> filenames = new ArrayList<>();
-        String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/";
+    @Override
+    public void onItemClicked(int position) {
 
-        File file = new File(directory);
-        File[] files = file.listFiles();
-        if(files != null){
-            for(File f : files){ // loop and print all file
-                String fileName = f.getName(); // this is file name
-                filenames.add(new Image(fileName, directory + fileName));
-                System.out.println(fileName);
-            }
-        }
-        return filenames;
     }
-
 }

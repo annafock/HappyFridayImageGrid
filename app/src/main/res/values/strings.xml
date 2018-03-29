@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HappyFridayImageGrid</string>
     <string name="Image">Image</string>
+    <string name="title_activity_show_image">ShowImageActivity</string>
 </resources>

@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageRecyclerViewAdapter.OnItemClickListener{
     private RecyclerView mRecyclerView;
     private ImageRecyclerViewAdapter adapter;
 
@@ -23,10 +23,16 @@ public class MainActivity extends AppCompatActivity {
         LoadImages task = new LoadImages();
         task.execute();
 
-        adapter = new ImageRecyclerViewAdapter(this, task.totalImages);
+        adapter = new ImageRecyclerViewAdapter(this, task.images);
 
         mRecyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(this);
+
     }
 
+    @Override
+    public void onItemClicked(int position) {
+
+    }
 }

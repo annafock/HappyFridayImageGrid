@@ -1,6 +1,7 @@
 package com.example.happyfridayimagegrid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -20,6 +22,14 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     private Context mContext;
     private ArrayList<Image> mImages;
+    private OnItemClickListener mListener;
+
+
+    public interface OnItemClickListener {
+        void onItemClicked(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){ mListener = listener; }
 
     public ImageRecyclerViewAdapter(Context mContext, ArrayList<Image> mImages) {
         this.mContext = mContext;
@@ -55,6 +65,26 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
         ViewHolder(View itemView) {
             super(itemView);
             myImageView = (ImageView) itemView.findViewById(R.id.image_view);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClicked(position);
+                            Image clickedItem = mImages.get(position);
+
+                            Toast.makeText(mContext, "Image clicked", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }
+            });
+
+
         }
     }
 

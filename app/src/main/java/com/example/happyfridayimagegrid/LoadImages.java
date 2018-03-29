@@ -8,8 +8,13 @@ import java.util.ArrayList;
 
 public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
 
-    ArrayList<Image> images = new ArrayList<>();
-    ArrayList<Image> totalImages = new ArrayList<>();
+    ArrayList<Image> images;
+
+    @Override
+    protected void onPreExecute() {
+        images = new ArrayList<Image>();
+
+    }
 
     @Override
     protected ArrayList<Image> doInBackground(Void ... voids) {
@@ -28,18 +33,16 @@ public class LoadImages extends AsyncTask<Void, Void, ArrayList<Image>>{
     }
 
 
-    protected void onProgressUpdate() {
-
+    protected void onProgressUpdate(Image images) {
+        //If a new image in directory
+        //add the image to the image list
+        //notify
 
     }
 
-    protected void onPostExecute(ArrayList<Image> images) {
-        super.onPostExecute(images);
-        for(Image image: images)
-        {
-            totalImages.add(image);
-        }
-
+    @Override
+    protected void onPostExecute(ArrayList<Image> i) {
+        
     }
 
 }

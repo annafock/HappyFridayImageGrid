@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
             progressBar.setVisibility(View.VISIBLE);
 
             progressBar.setProgress(imageCount);
+
+            //Slows the progress bar down just to make it visible in this example
             android.os.SystemClock.sleep(10);
         }
 

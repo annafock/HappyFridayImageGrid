@@ -27,7 +27,10 @@ public class LoadImages extends AsyncTask<Void, Integer, ArrayList<Image>>{
     //runs on background thread
     protected ArrayList<Image> doInBackground(Void ... voids) {
         int imageCount = 0;
-        String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/";
+        String directory = Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_PICTURES).toString() + "/"; //From folder in emulator
+
+       //String directory = "/storage/self/primary/Pictures/"; //From Picture folder in real device
 
         File file = new File(directory);
         File[] files = file.listFiles();

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         task.execute();
 
     }
-    
+
     // set grid layoutmanager depending on orientation
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

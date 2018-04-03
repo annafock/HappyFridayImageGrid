@@ -3,6 +3,7 @@ package com.example.happyfridayimagegrid;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 

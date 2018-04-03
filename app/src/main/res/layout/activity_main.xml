@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.happyfridayimagegrid.MainActivity">
+    tools:context="com.example.happyfridayimagegrid.MainActivity"
+    >
 
     <ProgressBar
         android:id="@+id/progress_bar"

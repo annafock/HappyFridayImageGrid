@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
     //Called from onPostExecute and runs from UI thread
     @Override
     public void onImagesLoaded(ArrayList<Image> imagesArray) {
+        progressBar.setVisibility(View.INVISIBLE);
 
         if (0 != imagesArray.size()){
 
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
             mRecyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(this);
+        }else{
+            //TODO error message
         }
     }
 

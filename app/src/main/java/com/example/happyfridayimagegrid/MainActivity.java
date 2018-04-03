@@ -3,11 +3,13 @@ package com.example.happyfridayimagegrid;
 
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,11 +28,6 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         int numberOfColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
-        progressBar = findViewById(R.id.progress_bar);
-        progressBar.setMax(100);
-        progressBar.setProgress(0);
-        progressBar.setVisibility(View.VISIBLE);
-
         LoadImages task = new LoadImages(this);
         task.execute();
 
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
     public void onImagesLoaded(ArrayList<Image> imagesArray) {
 
         if (0 != imagesArray.size()){
+
             progressBar.setVisibility(View.GONE);
 
             adapter = new ImageRecyclerViewAdapter(this, imagesArray);
@@ -59,10 +57,17 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
     //Called from onProgressUpdate on background Thread
     @Override
     public void sendUpdate(int imageCount) {
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+
         if (imageCount > 0){
+            progressBar.setVisibility(View.VISIBLE);
+
             progressBar.setProgress(imageCount);
             android.os.SystemClock.sleep(10);
-
         }
+
     }
+
 }

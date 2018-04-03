@@ -43,7 +43,6 @@ public class LoadImages extends AsyncTask<Void, Integer, ArrayList<Image>>{
             }
         }
 
-
         return images;
     }
 

@@ -1,6 +1,8 @@
 package com.example.happyfridayimagegrid;
 
 
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -25,12 +27,30 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.recycler_view_image);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+
         int numberOfColumns = 3;
+
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
         LoadImages task = new LoadImages(this);
         task.execute();
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int orientation = newConfig.orientation;
+
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        }
     }
 
     @Override
@@ -41,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
     //Called from onPostExecute and runs from UI thread
     @Override
     public void onImagesLoaded(ArrayList<Image> imagesArray) {
+
         progressBar.setVisibility(View.INVISIBLE);
 
         if (0 != imagesArray.size()){
@@ -60,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
     //Called from onProgressUpdate on background Thread
     @Override
     public void sendUpdate(int imageCount) {
-        progressBar = findViewById(R.id.progress_bar);
-        progressBar.setMax(100);
-        progressBar.setProgress(0);
 
         if (imageCount > 0){
             progressBar.setVisibility(View.VISIBLE);

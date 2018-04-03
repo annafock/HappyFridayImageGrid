@@ -54,6 +54,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
                     .error(R.mipmap.ic_launcher_round)
                     .thumbnail(0.5f)
                     .centerCrop()
+                    .dontAnimate()
                     .into(holder.myImageView);
 
             //Set content description for each image

@@ -53,7 +53,6 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.mipmap.ic_launcher_round)
                     .thumbnail(0.5f)
-                    .centerCrop()
                     .dontAnimate()
                     .into(holder.myImageView);
 

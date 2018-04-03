@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         task.execute();
 
     }
-
+    
+    // set grid layoutmanager depending on orientation
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ImageRecyclerView
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         }
     }
 
